@@ -8,11 +8,11 @@
 
 ```java
 
-SqlHandler handler = new SimpleSqlHandler();
-Method selectAll = UserDao.class.getDeclaredMethod("selectByName", String.class);
+Method selectByName = UserDao.class.getDeclaredMethod("selectByName", String.class);
 Map<String, Object> map = new HashMap<>();
 map.put("ename", "JONES");
-handler.excuteSql(selectAll, map);
+new SimpleSqlHandler().excuteSql(selectByName, map);
+
 
 ```
 
