@@ -1,6 +1,6 @@
 package io.github.pleuvoir.parser;
 
-public interface XmlParser<I> {
+public interface XmlParser {
 
-	void parser(Class<I> clazz, String xmlName);
+	XmlMetaData parser(String xmlName);
 }

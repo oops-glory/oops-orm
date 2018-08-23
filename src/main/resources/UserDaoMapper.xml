@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<select id="selectByName" resultType="io.github.pleuvoir.model.User">
+		select * from emp where ename =  #{ename} 
+	</select>
+	
+</config>

@@ -1,19 +1,18 @@
 package io.github.pleuvoir.parser;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import io.github.pleuvoir.dao.UserDao;
 import lombok.SneakyThrows;
 
-public class SimpleXmlParser implements XmlParser<UserDao> {
+public class SimpleXmlParser implements XmlParser {
 
-	
 	@SneakyThrows
 	@Override
-	public void parser(Class<UserDao> clazz, String xmlName) {
+	public XmlMetaData parser(String xmlName) {
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(xmlName);
 		SAXReader reader = new SAXReader();
 		Document doc = reader.read(is);
@@ -21,12 +20,12 @@ public class SimpleXmlParser implements XmlParser<UserDao> {
 		Element root = doc.getRootElement();
 		// 获取所有 select 语句
 		List<Element> selectAll = root.elements("select");
+		List<Select> selects = new ArrayList<>();
 		selectAll.forEach(select -> {
-			System.out.println(select.getTextTrim());
+			Select s = Select.builder().sql(select.getTextTrim()).id(select.attribute("id").getValue()).build();
+			selects.add(s);
 		});
+		return XmlMetaData.builder().selects(selects).build();
 	}
-	
-	public static void main(String[] args) {
-		new SimpleXmlParser().parser(null, "User.xml");
-	}
+
 }

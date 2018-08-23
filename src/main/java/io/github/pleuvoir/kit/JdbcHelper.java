@@ -43,6 +43,7 @@ public abstract class JdbcHelper {
 
 	
 	public static List<Map<String, Object>> executeSql(String sql) {
+		logger.info("executeSql：{}", sql);
 		PreparedStatement ps = null;
 		ResultSet         rs = null;
 		Connection 	      conn = getConnection();
